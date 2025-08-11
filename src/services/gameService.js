@@ -50,6 +50,26 @@ const create = async (formData) =>{
   }
 }
 
+const update = async (formData, gameId) =>{
+  try{
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${BASE_URL}/${gameId}`, {
+      method:"PUT",
+      headers:{
+        'Content-Type':'application',
+        Authorization:`Bearer ${token}`
+      },
+      body:JSON.stringify(formData)
+    })
+
+    const data = await res.json()
+    return data
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
 export {
   index,create , show
 }

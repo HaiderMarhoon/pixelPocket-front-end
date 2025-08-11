@@ -5,7 +5,8 @@ import SignIn from './components/SignIn/SignIn'
 import GameForm from './components/GameForm/GameForm'
 import GameList from './components/GameList/GameList'
 
-// add
+// add plase
+
 
 import { Route, Routes } from 'react-router-dom'
 import * as authService from './services/authService.js'
@@ -56,6 +57,15 @@ const App = () => {
     }
     catch(err){
       console.error('Failed to add game:', err)
+    }
+  }
+  const handleUpdateGame = async (formData, gameId) =>{
+    try{
+      const updateGame = await gameService.update(formData,gameId)
+      navigate(`/games/${gameId}`)
+    }
+    catch(err){
+      console.log(err)
     }
   }
 
