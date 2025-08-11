@@ -2,11 +2,10 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'
 import CommentForm from '../CommentForm/CommentForm';
+import { Link } from 'react-router-dom';
 
 const GameDetails = ({
     user,
-    handleDeleteGame,
-    
 }) => {
     const {gameId} = useParams()
     const [game, setGame] = useState(null)
