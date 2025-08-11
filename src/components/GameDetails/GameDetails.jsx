@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const GameDetails = ({
     user,
+    handleDeleteGame
 }) => {
     const { gamesId: gameId } = useParams()
     const [game, setGame] = useState(null)
