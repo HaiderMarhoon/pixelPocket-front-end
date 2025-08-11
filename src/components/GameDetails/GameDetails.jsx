@@ -4,14 +4,13 @@ import * as gameService from '../../services/gameService'
 
 const GameDetails = ({
     user,
-    favorite,
+    handleDeleteGame,
     
 }) => {
     const {gameId} = useParams()
     const [game, setGame] = useState(null)
-    const [editText, setEditText] = useState('')
 
-    useInsertionEffect(() => {
+    useEffect(() => {
         const fetchGame = async () => {
             const gameData = await gameService.show(gameId)
             setGame(gameData)
@@ -23,7 +22,26 @@ const GameDetails = ({
 
     return(
         <main>
-            <img src={game.image} alt={game} />
+            <header>
+            <img src={game.image} alt={game.title} style={{maxWidth: "300"}} />
+            <p>{game.category.toUpperCase()}</p>
+            <h1>{game.title}</h1>
+            <p>
+                {game.author.username} added on {new Date(game.createdAt).toLocalDataString()}
+            </p>
+            <p>Age Rating: {game.ageRate}+</p>
+            <p>
+                <a href={game.gameLink} target="_blank" rel='non'>
+                    Play Game
+                </a>
+            </p>
+            {user && game.author.id === user.id && (
+                <>
+                    <Link to={`/games/${gameId}/edit`}>Edit</Link>
+                    <button onClick={() => handleDeleteGame(gameId)}>Delete</button>
+                </>
+            )}
+            </header>
         </main>
     )
 }
