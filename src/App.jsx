@@ -3,14 +3,15 @@ import NavBar from './components/NavBar/NavBar'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import GameForm from './components/GameForm/GameForm'
-import GameList from './components/GameList/GameList'
+import GameLst from './components/GameList/GameList'
+
 import { Route, Routes } from 'react-router-dom'
 import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
 import { useState , useEffect } from 'react'
 
 const App = () => {
-
+  
   const initialState = authService.getUser()
 
   const [user, setUser] = useState(initialState)
@@ -86,5 +87,3 @@ const App = () => {
 }
 
 export default App
-
-
