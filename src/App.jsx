@@ -57,6 +57,15 @@ const App = () => {
       console.error('Failed to add game:', err)
     }
   }
+  const handleUpdateGame = async (formData, gameId) =>{
+    try{
+      const updateGame = await gameService.update(formData,gameId)
+      navigate(`/games/${gameId}`)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <>

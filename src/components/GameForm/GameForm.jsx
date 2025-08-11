@@ -31,7 +31,12 @@ const GameForm = (props) => {
     const handleSubmit = async (evt) => {
         evt.preventDefault()
         try{
-            await props.handleAddGame(formData)
+            if(gameId){
+                await props.handleUpdateGame(formData,gameId)
+            }else{
+
+                await props.handleAddGame(formData)
+            }
         }
         catch(err){
             console.error('Submission error:', err)
