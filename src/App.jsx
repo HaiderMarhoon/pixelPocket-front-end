@@ -2,10 +2,13 @@ import './App.css'
 import NavBar from './components/NavBar/NavBar'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
-import GameList from './components/GameList/GameList.jsx'
+import GameForm from './components/GameForm/GameForm'
+import GameLst from './components/GameList/GameList'
+
 import { Route, Routes } from 'react-router-dom'
 import * as authService from './services/authService.js'
-import { useState } from 'react'
+import * as gameService from './services/gameService'
+import { useState , useEffect } from 'react'
 
 const App = () => {
   
