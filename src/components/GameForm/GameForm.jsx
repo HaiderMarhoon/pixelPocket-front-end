@@ -1,42 +1,41 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import * as gameService from "../../services/gameService"
 
-
-const GameForm = (props) =>{
-
-    const { gameId } = useParams
+const GameForm = (props) => {
+    const { gameId } = useParams()
 
     const initialState = {
-        title:"",
-        category:"",
-        body:"",
+        title: "",
+        category: "",
+        body: "",
         ageRate: "",
-        image:"",
-        gameLink:""
+        image: "",
+        gameLink: ""
     }
 
-    const [formData , setFormData] = useState(initialState)
+    const [formData, setFormData] = useState(initialState)
 
-    useEffect(()=>{
-        const fetchGame = async ()=>{
+    useEffect(() => {
+            const fetchGame = async () => {
             const data = await gameService.show(gameId)
             setFormData(data)
-        }
-        if(gameId) fetchGame()
-    },[gameId])
+            }
+            if (gameId) fetchGame()
+    }, [gameId])
 
-    const handleChange = (evt) =>{
-        setFormData({...formData, [evt.target.name]: evt.target.value})
-
+    const handleChange = (evt) => {
+        setFormData({ ...formData, [evt.target.name]: evt.target.value })
     }
 
-    const handleSubmit = (evt) =>{
+    const handleSubmit = async (evt) => {
         evt.preventDefault()
-
-        // if(gameId){
-        //     props.ha
-        // }
-
+        try{
+            await props.handleAddGame(formData)
+        }
+        catch(err){
+            console.error('Submission error:', err)
+        }
     }
 
     return(

@@ -2,9 +2,22 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/games`
 
 const index = async () => {
   try {
-    const res = await fetch(BASE_URL)
-    const data = await res.json()
-    return data
+    const token = localStorage.getItem('token')
+    const res = await fetch(BASE_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    return await res.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const show = async (gameId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${gameId}`)
+    return await res.json()
   } catch (err) {
     console.log(err)
   }
@@ -14,6 +27,7 @@ const create = async (formData) =>{
   try{
 
     const token = localStorage.getItem('token')
+    if (!token) throw new Error('No authentication token found')
 
     const res = await fetch(BASE_URL, {
       method:'POST',
@@ -23,6 +37,10 @@ const create = async (formData) =>{
       },
       body: JSON.stringify(formData)
     })
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.message || 'Failed to create game')
+    }
 
     const data = await res.json()
     return data
@@ -33,5 +51,5 @@ const create = async (formData) =>{
 }
 
 export {
-  index,create
+  index,create , show
 }

@@ -3,8 +3,8 @@ import NavBar from './components/NavBar/NavBar'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import GameForm from './components/GameForm/GameForm'
-import GameLst from './components/GameList/GameList'
-
+import GameList from './components/GameList/GameList'
+// add
 import { Route, Routes } from 'react-router-dom'
 import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
@@ -48,7 +48,13 @@ const App = () => {
   }
 
   const handleAddGame = async (formData) =>{
-    await gameService.create(formData)
+    try{
+      const newGame = await gameService.create(formData)
+      setGames([...games, newGame])
+    }
+    catch(err){
+      console.error('Failed to add game:', err)
+    }
   }
 
   return (
