@@ -47,7 +47,13 @@ const App = () => {
   }
 
   const handleAddGame = async (formData) =>{
-    await gameService.create(formData)
+    try{
+      const newGame = await gameService.create(formData)
+      setGames([...games, newGame])
+    }
+    catch(err){
+      console.error('Failed to add game:', err)
+    }
   }
 
   return (

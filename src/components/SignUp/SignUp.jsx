@@ -61,9 +61,6 @@ const SignUp = (props) => {
         <label>age:</label>
         <input type="text" name='age' onChange={handleChange} />
         <br />
-        <label>Username:</label>
-        <input type="text" name='username' onChange={handleChange} />
-        <br />
         <label>Password:</label>
         <input type="password" name='password' onChange={handleChange} />
         <br />
