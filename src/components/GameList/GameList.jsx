@@ -10,9 +10,6 @@ const GameList = (props) => {
           <article>  
             <header>
             <h2>{game.title}</h2>
-            <p>
-              {game.author.username} posted on {new Date(game.createdAt).toLocaleDateString()}
-            </p>
             </header>
             <p>{game.text}</p>
             <p>{game.image}</p>
