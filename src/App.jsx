@@ -4,6 +4,7 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import GameForm from './components/GameForm/GameForm'
 import GameList from './components/GameList/GameList'
+import GameDetails from './components/GameDetails/GameDetails'
 
 // add plase
 
@@ -75,6 +76,7 @@ const App = () => {
       <Routes>
         <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />}/>
         <Route path="/games" element={<GameList games={games} />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} />} />
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
         <Route path='/' element={<h1>Hello world!</h1>} />
@@ -82,25 +84,7 @@ const App = () => {
     </Routes>
     </>
 
-    // <>
-    //   <NavBar user={user} handleSignOut={handleSignOut} />
-    //   <Routes>
-    //     <Route path="/" element={<h1>Hello World!</h1>} />
-    //     {!user && (
-    //       <>
-    //         <Route
-    //           path="/sign-up"
-    //           element={<SignUp handleSignUp={handleSignUp} />}
-    //         />
-    //         <Route
-    //           path="/sign-in"
-    //           element={<SignIn handleSignIn={handleSignIn} />}
-    //         />
-    //       </>
-    //     )}
-    //     <Route path="*" element={<h1>404</h1>} />
-    //   </Routes>
-    // </>
+
   )
 }
 
