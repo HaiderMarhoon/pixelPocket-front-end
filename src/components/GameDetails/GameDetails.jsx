@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'
+import CommentForm from '../CommentForm/CommentForm';
 
 const GameDetails = ({
     user,
@@ -9,6 +10,8 @@ const GameDetails = ({
 }) => {
     const {gameId} = useParams()
     const [game, setGame] = useState(null)
+    const [editingCommentId, setEditingCommentId] = useState(null)
+    const [editingText, setEditingText] = useState('')
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -17,6 +20,30 @@ const GameDetails = ({
         }
         fetchGame()
     }, [gameId])
+
+    // handle comments
+    const handleAddComment = async (formData) => {
+        const newComment = await gameService.createComment(formData, gameId)
+        setGame({...game, comments: [...game.comments, newComment]})
+    }
+
+    // edit comments handle
+    const handleEditComment = (comment) => {
+        setEditingCommentId(comment._id)
+        setEditingText(comment.text)
+    }
+
+    // update comments handle
+    const handleUpdateComment = async (formData) => {
+        const updated = await gameService.updateComment(formData, gameId, editingCommentId)
+        setGame({
+            ...game,
+            comments: game.comments.map(c => c.id === editingCommentId ? updated : c)
+        })
+        setEditingCommentId(null)
+        setEditingText('')
+    }
+
 
     if(!game) return <main>Loading...</main>
 
@@ -42,6 +69,13 @@ const GameDetails = ({
                 </>
             )}
             </header>
+            <section>
+                <h2>Comments</h2>
+                {user && !editingCommentId && (
+                    <CommentForm handleSubmit={handleAddComment} submitLabel="Add Comment" />
+                    
+                )}
+            </section>
         </main>
     )
 }
