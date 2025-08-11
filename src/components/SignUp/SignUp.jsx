@@ -8,6 +8,8 @@ const SignUp = (props) => {
     username: '',
     password: '',
     passwordConf: '',
+    email:"",
+    age:""
   }
 
   const [formData, setFormData] = useState(initialState)
@@ -50,6 +52,15 @@ const SignUp = (props) => {
       {/* add error message display to form */}
       {error}
       <form onSubmit={handleSubmit}>
+        <label>Username:</label>
+        <input type="text" name='username' onChange={handleChange} />
+        <br />
+        <label>Email:</label>
+        <input type="text" name='email' onChange={handleChange} />
+        <br />
+        <label>age:</label>
+        <input type="text" name='age' onChange={handleChange} />
+        <br />
         <label>Username:</label>
         <input type="text" name='username' onChange={handleChange} />
         <br />
