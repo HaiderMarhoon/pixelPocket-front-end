@@ -5,7 +5,7 @@ const SignIn = (props) => {
   const navigate = useNavigate()
 
   const initialState = {
-    username: '',
+    usernameOrEmail: '',
     password: '',
   }
 
@@ -31,8 +31,8 @@ const SignIn = (props) => {
     <main>
       <h1>Sign In Form</h1>
       <form onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input type="text" name='username' onChange={handleChange} />
+        <label>Username Or Email:</label>
+        <input type="text" name='usernameOrEmail' onChange={handleChange} />
         <br />
         <label>Password:</label>
         <input type="password" name='password' onChange={handleChange} />

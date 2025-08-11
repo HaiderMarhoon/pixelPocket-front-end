@@ -28,14 +28,19 @@ const signUp = async (formData) => {
 
 const signIn = async (formData) => {
   try {
+    const loginData = {
+      identifier: formData.usernameOrEmail,
+      password: formData.password
+    } 
     const res = await fetch(`${BASE_URL}/sign-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(loginData)
     })
     const data = await res.json()
+    if (!res.ok) throw new Error(data.err || 'Invalid credentials');
     if (data.token) {
       // save the token in local storage
       localStorage.setItem('token', data.token)
