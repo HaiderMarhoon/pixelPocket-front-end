@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router-dom'
 import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
 import { useState , useEffect } from 'react'
+import GameFavorite from './components/GameFavorite/GameFavorite.jsx'
 
 const App = () => {
   
@@ -76,6 +77,7 @@ const App = () => {
       <Routes>
         <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />}/>
         <Route path="/games" element={<GameList games={games} />} />
+        <Route path="//games/favorite" element={<GameFavorite games={games} />} />
         <Route path="/games/:gamesId" element={<GameDetails user={user} />} />
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
