@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'
 import CommentForm from '../CommentForm/CommentForm';
 
+
 const GameDetails = ({
     user,
     handleDeleteGame,
