@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const GameDetails = ({
     user,
 }) => {
-    const {gameId} = useParams()
+    const { gamesId: gameId } = useParams()
     const [game, setGame] = useState(null)
     const [editingCommentId, setEditingCommentId] = useState(null)
     const [editingText, setEditingText] = useState('')
@@ -38,7 +38,8 @@ const GameDetails = ({
         const updated = await gameService.updateComment(formData, gameId, editingCommentId)
         setGame({
             ...game,
-            comments: game.comments.map(c => c.id === editingCommentId ? updated : c)
+            comments: game.comments.map(c => c._id === editingCommentId ? updated : c)
+
         })
         setEditingCommentId(null)
         setEditingText('')
@@ -52,6 +53,11 @@ const GameDetails = ({
             comments: game.comments.filter(c => c._id !== commentId)
         })
     }
+    const handleDeleteGame = async (id) => {
+        await gameService.deleteGame(id)
+        navigate('/games')
+    }
+
 
 
     if(!game) return <main>Loading...</main>
@@ -60,10 +66,10 @@ const GameDetails = ({
         <main>
             <header>
             <img src={game.image} alt={game.title} style={{maxWidth: "300"}} />
-            <p>{game.category.toUpperCase()}</p>
+            <p>{game.category}</p>
             <h1>{game.title}</h1>
             <p>
-                {game.author.username} added on {new Date(game.createdAt).toLocalDataString()}
+
             </p>
             <p>Age Rating: {game.ageRate}+</p>
             <p>
@@ -71,7 +77,7 @@ const GameDetails = ({
                     Play Game
                 </a>
             </p>
-            {user && game.author.id === user.id && (
+            {user === user.id && (
                 <>
                     <Link to={`/games/${gameId}/edit`}>Edit</Link>
                     <button onClick={() => handleDeleteGame(gameId)}>Delete</button>
@@ -83,7 +89,7 @@ const GameDetails = ({
                 {user && !editingCommentId && (
                     <CommentForm handleSubmit={handleAddComment} submitLabel="Add Comment" />
                 )}
-                {!game.comments.length && <p>No comments.</p>}
+                {/* {!game.comments.length && <p>No comments.</p>} */}
                 {game.comments.map((comment) => 
                     editingCommentId === comment.id ? (
                         <CommentForm
@@ -105,7 +111,8 @@ const GameDetails = ({
                             {user && comment.author._id === user._id && (
                                 <>
                                 <button onClick={() => handleEditComment(comment)}>Edit</button>
-                                <button onclick={() => handleDeleteComment(comment._id)}>Delete</button>
+                                <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
+
                                 </>
                             )}
                         </div>

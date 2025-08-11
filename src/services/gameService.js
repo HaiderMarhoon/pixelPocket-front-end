@@ -49,6 +49,42 @@ const create = async (formData) =>{
     console.log(err)
   }
 }
+const createComment = async (formData, gameId) => {
+  const token = localStorage.getItem('token')
+  const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(formData)
+  })
+  return await res.json()
+}
+
+const updateComment = async (formData, gameId, commentId) => {
+  const token = localStorage.getItem('token')
+  const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(formData)
+  })
+  return await res.json()
+}
+
+const deleteComment = async (gameId, commentId) => {
+  const token = localStorage.getItem('token')
+  await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
 
 const update = async (formData, gameId) =>{
   try{
@@ -71,5 +107,5 @@ const update = async (formData, gameId) =>{
 }
 
 export {
-  index,create , show
+  index,create , show, update,updateComment,deleteComment,createComment
 }
