@@ -27,13 +27,13 @@ const GameDetails = ({
         setGame({...game, comments: [...game.comments, newComment]})
     }
 
-    // edit comments handle
+    // edit comments handler
     const handleEditComment = (comment) => {
         setEditingCommentId(comment._id)
         setEditingText(comment.text)
     }
 
-    // update comments handle
+    // update comments handler
     const handleUpdateComment = async (formData) => {
         const updated = await gameService.updateComment(formData, gameId, editingCommentId)
         setGame({
@@ -42,6 +42,15 @@ const GameDetails = ({
         })
         setEditingCommentId(null)
         setEditingText('')
+    }
+    
+    // delete comments handler
+    const handleDeleteComment = async (commentId) => {
+        await gameService.deleteComment(gameId, commentId)
+        setGame({
+            ...game,
+            comments: game.comments.filter(c => c._id !== commentId)
+        })
     }
 
 
@@ -73,8 +82,34 @@ const GameDetails = ({
                 <h2>Comments</h2>
                 {user && !editingCommentId && (
                     <CommentForm handleSubmit={handleAddComment} submitLabel="Add Comment" />
-                    
                 )}
+                {!game.comments.length && <p>No comments.</p>}
+                {game.comments.map((comment) => 
+                    editingCommentId === comment.id ? (
+                        <CommentForm
+                            key={comment._id}
+                            initialText={editingText}
+                            handleSubmit={handleUpdateComment}
+                            submitlabel="Update"
+                            handleCancel={() => setEditingCommentId(null)}
+                            />
+                    ):(
+                        <div key={comment._id}>
+                            <p>
+                                <b>{comment.author.username}</b>:{' '}
+                                {comment.text}
+                                <span>
+                                {new Date(comment.createdAt).toLocaleString()}
+                                </span>
+                            </p>
+                            {user && comment.author._id === user._id && (
+                                <>
+                                <button onClick={() => handleEditComment(comment)}>Edit</button>
+                                <button onclick={() => handleDeleteComment(comment._id)}>Delete</button>
+                                </>
+                            )}
+                        </div>
+                    ))}
             </section>
         </main>
     )
