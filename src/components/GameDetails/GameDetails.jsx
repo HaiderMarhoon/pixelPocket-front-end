@@ -7,6 +7,7 @@ import CommentForm from '../CommentForm/CommentForm';
 
 const GameDetails = ({
     user,
+    favorite,
     handleSetFavorite,
     handleRemoveFavorite
 }) => {
@@ -45,18 +46,18 @@ const GameDetails = ({
 
     const handleDeleteComment = async (commentId) => {
         await gameService.deleteComment(gameId, commentId);
-        fetchGame(); // Refresh comments after deleting
+        fetchGame(); 
     };
     // delete game handler
-    const handleDeleteGame = async (gameId) => {
-        try{
-            await gameService.deleteGame(gameId)
-            navigate('/games')
-        }
-        catch(err){
-            console.log('Failed', err)
-        }
-    }
+    // const handleDeleteGame = async (gameId) => {
+    //     try{
+    //         await gameService.deleteGame(gameId)
+    //         navigate('/games')
+    //     }
+    //     catch(err){
+    //         console.log('Failed', err)
+    //     }
+    // }
 
     if(!game) return <main>Loading...</main>
     

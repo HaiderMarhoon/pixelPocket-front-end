@@ -18,8 +18,8 @@ const GameForm = (props) => {
 
     useEffect(() => {
             const fetchGame = async () => {
-            const data = await gameService.show(gameId)
-            setFormData(data)
+                const data = await gameService.show(gameId)
+                setFormData(data)
             }
             if (gameId) fetchGame()
     }, [gameId])
@@ -28,14 +28,13 @@ const GameForm = (props) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value })
     }
 
-    const handleSubmit = async (evt) => {
+    const handleSubmit =  (evt) => {
         evt.preventDefault()
         try{
             if(gameId){
-                await props.handleUpdateGame(formData,gameId)
+                props.handleUpdateGame(formData,gameId)
             }else{
-
-                await props.handleAddGame(formData)
+                props.handleAddGame(formData);
             }
         }
         catch(err){
