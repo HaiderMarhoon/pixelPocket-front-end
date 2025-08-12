@@ -82,7 +82,7 @@ const App = () => {
           console.error('Failed to add game:', err);
       }
   };
-  const handleUpdateGame = async (formData, gameId) =>{
+  const handleUpdateGame = async (formData, gamesId) =>{
     try{
       const updateGame = await gameService.update(formData, gameId)
       setGames(games.map(g => g._id === gameId ? updateGame : g))
@@ -93,28 +93,28 @@ const App = () => {
     }
   }
 
-  const handleDeleteGame = async (gameId) => {
+  const handleDeleteGame = async (gamesId) => {
       try {
-          await gameService.deleteGame(gameId);
-          setGames(games.filter(game => game._id !== gameId));
+          await gameService.deleteGame(gamesId);
+          setGames(games.filter(game => game._id !== gamesId));
           navigate('/games');
       } catch (err) {
           console.log('Failed to delete game:', err);
       }
   };
   
-  const handleAddFavorite = async (gameId) => {
+  const handleAddFavorite = async (gamesId) => {
     try {
-      const updatedFavorites = await favoriteService.addFavorite(user._id, gameId);
+      const updatedFavorites = await favoriteService.addFavorite(user._id, gamesId);
       setFavorite(updatedFavorites);
     } catch (err) {
       console.error('Failed to add favorite:', err);
     }
   };
 
-  const handleRemoveFavorite = async (gameId) => {
+  const handleRemoveFavorite = async (gamesId) => {
     try {
-      const updatedFavorites = await favoriteService.removeFavorite(user._id, gameId);
+      const updatedFavorites = await favoriteService.removeFavorite(user._id, gamesId);
       setFavorite(updatedFavorites);
     } catch (err) {
       console.error('Failed to remove favorite:', err);
@@ -133,8 +133,10 @@ const App = () => {
         <Route path="/games/:gamesId/edit" element={<GameForm handleUpdateGame={handleUpdateGame} />} />
         <Route path="/games" element={<GameList games={games} />} />
 
-        <Route path="/user/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
-        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleDeleteGame={handleDeleteGame}  />} />
+
+        <Route path="/users/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite} handleDeleteGame={handleDeleteGame} />} />
+
 
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
