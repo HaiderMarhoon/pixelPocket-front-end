@@ -29,7 +29,7 @@ const signUp = async (formData) => {
 const signIn = async (formData) => {
   try {
     const loginData = {
-      identifier: formData.usernameOrEmail,
+      usernameOrEmail: formData.usernameOrEmail,
       password: formData.password
     } 
     const res = await fetch(`${BASE_URL}/sign-in`, {

@@ -18,6 +18,7 @@ const GameList = (props) => {
 
   return (
     <main>
+
       <div id='browser'>
         <div id='title-browser'>
           <h1>Game Browser</h1>
@@ -43,6 +44,7 @@ const GameList = (props) => {
           ))}
         </div>
       </div>
+
     </main>
   );
 };
