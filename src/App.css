@@ -175,3 +175,9 @@ ul.topnav li.right {float: right;}
   height: auto;
   border: 2px solid black;
 }
+
+#home-img{
+  background-image: url('/src/assets/background.jpeg');
+  background-size: cover;
+  height: 50vh;
+}
