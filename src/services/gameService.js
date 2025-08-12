@@ -16,7 +16,12 @@ const index = async () => {
 
 const show = async (gameId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${gameId}`)
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${BASE_URL}/${gameId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+      }
+    })
     return await res.json()
   } catch (err) {
     console.log(err)
