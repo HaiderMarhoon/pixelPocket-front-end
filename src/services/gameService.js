@@ -117,6 +117,29 @@ const update = async (formData, gameId) =>{
   }
 }
 
+const deleteGame = async (gameId) => {
+  try{
+    const token = localStorage.getItem('token');
+    console.log("Deleting game with token:", token);
+    const res = await fetch(`${BASE_URL}/${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Error deleting game:", errorData);
+      throw new Error(errorData.message || 'Failed to delete game');
+    }
+    return await res.json(); 
+  }
+  catch(err){
+    console.log(err)
+  }
+};
+
 export {
-  index,create , show, update,updateComment,deleteComment,createComment
+  index,create , show, update,updateComment,deleteComment,createComment,deleteGame
 }
