@@ -48,9 +48,14 @@ const GameDetails = ({
         fetchGame(); // Refresh comments after deleting
     };
     // delete game handler
-    const handleDeleteGame = async (id) => {
-        await gameService.deleteGame(id)
-        navigate('/games')
+    const handleDeleteGame = async (gameId) => {
+        try{
+            await gameService.deleteGame(gameId)
+            navigate('/games')
+        }
+        catch(err){
+            console.log('Failed', err)
+        }
     }
 
     if(!game) return <main>Loading...</main>
