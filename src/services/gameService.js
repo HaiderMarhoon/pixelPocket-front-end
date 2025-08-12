@@ -54,41 +54,47 @@ const create = async (formData) =>{
     console.log(err)
   }
 }
+
 const createComment = async (formData, gameId) => {
-  const token = localStorage.getItem('token')
-  const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(formData)
-  })
-  return await res.json()
-}
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+    return await res.json();
+};
 
 const updateComment = async (formData, gameId, commentId) => {
-  const token = localStorage.getItem('token')
-  const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(formData)
-  })
-  return await res.json()
-}
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to update comment');
+    }
+
+    return await res.json(); 
+};
 
 const deleteComment = async (gameId, commentId) => {
-  const token = localStorage.getItem('token')
-  await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+    const token = localStorage.getItem('token');
+    await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+};
 
 
 const update = async (formData, gameId) =>{
@@ -111,6 +117,38 @@ const update = async (formData, gameId) =>{
   }
 }
 
+const deleteGame = async (gameId) => {
+  try{
+    const token = localStorage.getItem('token');
+    console.log("Deleting game with token:", token);
+    const res = await fetch(`${BASE_URL}/${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Error deleting game:", errorData);
+      throw new Error(errorData.message || 'Failed to delete game');
+    }
+    return await res.json(); 
+  }
+  catch(err){
+    console.log(err)
+  }
+};
+
 export {
-  index,create , show, update,updateComment,deleteComment,createComment
+
+  index,
+  create,
+  show, 
+  update,
+  updateComment,
+  deleteComment,
+  createComment,
+  deleteGame
+
 }
