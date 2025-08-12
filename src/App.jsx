@@ -13,6 +13,7 @@ import HomePage from './components/homePage/homePage'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
+import * as favoriteService from './services/favoriteService'
 import { useState , useEffect } from 'react'
 import GameFavorite from './components/GameFavorite/GameFavorite.jsx'
 
@@ -24,6 +25,7 @@ const App = () => {
 
   const [user, setUser] = useState(initialState)
   const [games , setGames] = useState([])
+  const [favorite, setFavorite] = useState([])
 
   useEffect(()=>{
     const fetchAllGame = async () =>{
@@ -32,6 +34,18 @@ const App = () => {
     }
     fetchAllGame()
   },[])
+
+  useEffect(() => {
+    const fetchFavorites = async (gameId) => {
+      if(user){
+        const fav = await favoriteService.getFavorite(user._id, gameId)
+        setFavorite(fav)
+      }else{
+        setFavorite([])
+      }
+    }
+    fetchFavorites()
+  }, [user])
 
   const handleSignUp = async (formData) => {
     try {
@@ -82,6 +96,14 @@ const App = () => {
       console.log(err)
     }
   }
+  const handleAddFavorite = async (gameId) => {
+    const updated = await favoriteService.addFavorite(user._id, gameId)
+    setFavorite(updated)
+  }
+  const handleRemoveFavorite = async (gameId) => {
+    const updated = await favoriteService.removeFavorite(user._id, gameId)
+    setFavorite(updated)
+  }
 
   return (
     <>
@@ -90,8 +112,10 @@ const App = () => {
         <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />} />
         <Route path="/games/:gamesId/edit" element={<GameForm handleUpdateGame={handleUpdateGame} />} />
         <Route path="/games" element={<GameList games={games} />} />
-        <Route path="//games/favorite" element={<GameFavorite games={games} />} />
-        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} handleDeleteGame={handleDeleteGame}/>} />
+
+        <Route path="/user/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite} />} />
+
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
         <Route path='/' element={<HomePage  />} />
