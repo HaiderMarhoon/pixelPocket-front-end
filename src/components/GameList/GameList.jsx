@@ -1,23 +1,52 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const GameList = (props) => {
+  const [search, setSearchQuery] = useState('');
+
+  const filteredGameBrowser = props.games.filter(game =>
+    game.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleSearchBrowserChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchBrowserSubmit = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <main>
-      <h1>Game List</h1>
-      {props.games.map((game) => (
-        <Link key={game._id} to={`/games/${game._id}`}>
-          <article>  
-            <header>
-            <h2>{game.title}</h2>
-            </header>
-            <p>{game.text}</p>
-            <img src={game.image} alt={game.title} />
-          </article>
-        </Link>
-      ))}
-    </main>
-  )
-}
 
-export default GameList
+      <div id='browser'>
+        <div id='title-browser'>
+          <h1>Game Browser</h1>
+        </div>
+        <form onSubmit={handleSearchBrowserSubmit}>
+          <input
+            type='text'
+            placeholder='Search'
+            value={search}
+            onChange={handleSearchBrowserChange}
+          />
+          <button type='submit'>Search</button>
+        </form>
+        <div id='browser-item'>
+          {filteredGameBrowser.map((game) => (
+            <Link key={game._id} to={`/games/${game._id}`}>
+              <article>
+                <p>{game.text}</p>
+                <img src={game.image} alt={game.title} />
+                <h2>{game.title}</h2>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+    </main>
+  );
+};
+
+export default GameList;

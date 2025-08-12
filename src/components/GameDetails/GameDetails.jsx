@@ -1,9 +1,7 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'
 import CommentForm from '../CommentForm/CommentForm';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 
 const GameDetails = ({
@@ -18,7 +16,10 @@ const GameDetails = ({
    useEffect(() => {
         const fetchGame = async () => {
             const gameData = await gameService.show(gameId)
+
             setGame({ ...gameData, comments: gameData.comments || [] })
+
+
         }
         fetchGame()
     }, [gameId])
@@ -73,8 +74,9 @@ const GameDetails = ({
                 <p>{game.category}</p>
                 <h1>{game.title}</h1>
                 <p>
-                    {game.author?.username} {new Date(game.creatAt).toLocaleDateString()}
+                    {game.author?.username}  {new Date(game.creatAt).toLocaleDateString()}
                 </p>
+                <p>{game.body}</p>
                 <p>Age Rating: {game.ageRate}+</p>
                 <p>
                     <a href={game.gameLink} target="_blank" rel='non'>
