@@ -9,7 +9,8 @@ const GameDetails = ({
     user,
     favorite,
     handleAddFavorite,
-    handleRemoveFavorite
+    handleRemoveFavorite, 
+    handleDeleteGame
 }) => {
 
     const { gamesId: gameId } = useParams()
@@ -108,7 +109,7 @@ const GameDetails = ({
                         <CommentForm
                             key={comment._id}
                             initialText={editingText}
-                            handleAddComment={handleUpdateComment}
+                            handleAddC omment={handleUpdateComment}
                             submitLabel="Update"
                             handleCancel={() => setEditingCommentId(null)}
                         />

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import * as gameService from "../../services/gameService"
 
 const GameForm = (props) => {
-    const { gameId } = useParams()
+    const { gamesId } = useParams()
+    console.log(gamesId)
+    const navegite = useNavigate()
 
     const initialState = {
         title: "",
@@ -18,11 +20,11 @@ const GameForm = (props) => {
 
     useEffect(() => {
             const fetchGame = async () => {
-                const data = await gameService.show(gameId)
+                const data = await gameService.show(gamesId)
                 setFormData(data)
             }
-            if (gameId) fetchGame()
-    }, [gameId])
+            if (gamesId) fetchGame()
+    }, [gamesId])
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value })
@@ -31,11 +33,12 @@ const GameForm = (props) => {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         try {
-            if (gameId) {
-                props.handleUpdateGame(formData, gameId);
+            if (gamesId) {
+                props.handleUpdateGame(formData, gamesId);
             } else {
                 props.handleAddGame(formData);
             }
+            navegite("/games")
         } catch (err) {
             console.error('Submission error:', err);
         }
@@ -44,7 +47,7 @@ const GameForm = (props) => {
     return(
         <main>
             <form onSubmit={handleSubmit}>
-                <h1>{gameId ? 'Edit Game' : 'New Game'}</h1>
+                <h1>{gamesId ? 'Edit Game' : 'New Game'}</h1>
 
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" value={formData.title}
