@@ -12,7 +12,7 @@ const GameList = (props) => {
             <h2>{game.title}</h2>
             </header>
             <p>{game.text}</p>
-            <p>{game.image}</p>
+            <img src={game.image} alt={game.title} />
           </article>
         </Link>
       ))}
