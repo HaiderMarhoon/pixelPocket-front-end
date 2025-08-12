@@ -55,6 +55,35 @@ const create = async (formData) =>{
   }
 }
 
+// GET FAVORITE
+const getFavorite = async (userId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch (`${BASE_URL}/${userId}/favorites`, {
+        headers: { Authorization: `Bearer ${token}`}
+    });
+    const data = await res.json();
+    return data.favorites;
+}
+// POST FAVORITE
+const addFavorite = async (userId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`,{
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`}
+    })
+    return (await res.json()).favorites;
+}
+// DELETE FAVORITE
+const removeFavorite = async (userId, gameId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${userId}/favorites/${gameId}`,{
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}`}
+    });
+    return (await res.json()).favorites;
+}
+
+
 const createComment = async (formData, gameId) => {
     const token = localStorage.getItem('token');
     const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
@@ -83,7 +112,7 @@ const updateComment = async (formData, gameId, commentId) => {
         throw new Error('Failed to update comment');
     }
 
-    return await res.json(); // Return the updated comment data
+    return await res.json(); 
 };
 
 const deleteComment = async (gameId, commentId) => {
@@ -141,5 +170,17 @@ const deleteGame = async (gameId) => {
 };
 
 export {
-  index,create , show, update,updateComment,deleteComment,createComment,deleteGame
+
+  index,
+  create,
+  getFavorite,
+  addFavorite,
+  removeFavorite,
+  show, 
+  update,
+  updateComment,
+  deleteComment,
+  createComment,
+  deleteGame
+
 }
