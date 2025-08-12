@@ -13,19 +13,22 @@ const GameDetails = ({
     const [editingCommentId, setEditingCommentId] = useState(null)
     const [editingText, setEditingText] = useState('')
 
-    useEffect(() => {
+   useEffect(() => {
         const fetchGame = async () => {
             const gameData = await gameService.show(gameId)
-            setGame(gameData)
-            console.log(gameData)
+
+            setGame({ ...gameData, comments: gameData.comments || [] })
+
+
         }
         fetchGame()
     }, [gameId])
 
+
     // handle comments
     const handleAddComment = async (formData) => {
         const newComment = await gameService.createComment(formData, gameId)
-        setGame({...game, comments: [...game.comments, newComment]})
+        setGame({ ...game, comments: [...game.comments, newComment] })
     }
 
     // edit comments handler
@@ -67,7 +70,7 @@ const GameDetails = ({
     return(
         <main>
             <header>
-                <img src={game.image} alt={game.title} style={{maxWidth: "300"}} />
+                <img src={game.image} alt={game.title} style={{maxWidth: "300px"}} />
                 <p>{game.category}</p>
                 <h1>{game.title}</h1>
                 <p>
@@ -93,19 +96,21 @@ const GameDetails = ({
             </section>
             <section>
                 <h2>Comments</h2>
+                
                 {user && !editingCommentId && (
-                    <CommentForm handleSubmit={handleAddComment} submitLabel="Add Comment" />
+                    <CommentForm handleAddComment={handleAddComment} submitLabel="Add Comment" />
                 )}
                 {(!game.comments || game.comments.length === 0) && <p>No comments.</p>}
                 {game.comments && game.comments.map((comment) => 
-                    editingCommentId === comment.id ? (
-                        <CommentForm
-                            key={comment._id}
-                            initialText={editingText}
-                            handleSubmit={handleUpdateComment}
-                            submitlabel="Update"
-                            handleCancel={() => setEditingCommentId(null)}
-                            />
+                    editingCommentId === comment._id ? ( 
+                     <CommentForm
+                        key={comment._id}
+                        initialText={editingText}
+                        handleAddComment={handleUpdateComment}
+                        submitLabel="Update"
+                        handleCancel={() => setEditingCommentId(null)}
+                     />
+
                     ):(
                         <div key={comment._id}>
                             <p>
@@ -114,7 +119,7 @@ const GameDetails = ({
                                 {new Date(comment.createdAt).toLocaleString()}
                                 </span>
                             </p>
-                            {user && comment.author._id === comment.author._id === user._id && (
+                            {user && comment.author._id === user._id && (
                                 <>
                                 <button onClick={() => handleEditComment(comment)}>Edit</button>
                                 <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
