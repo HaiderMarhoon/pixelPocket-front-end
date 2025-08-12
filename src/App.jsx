@@ -5,6 +5,7 @@ import SignIn from './components/SignIn/SignIn'
 import GameForm from './components/GameForm/GameForm'
 import GameList from './components/GameList/GameList'
 import GameDetails from './components/GameDetails/GameDetails'
+import HomePage from './components/homePage/homePage'
 
 // add plase
 
@@ -81,7 +82,7 @@ const App = () => {
         <Route path="/games/:gamesId" element={<GameDetails user={user} games={games}/>} />
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
-        <Route path='/' element={<h1>Hello world!</h1>} />
+        <Route path='/' element={<HomePage  />} />
         <Route path='*' element={<h1>404</h1>} />
     </Routes>
     </>
