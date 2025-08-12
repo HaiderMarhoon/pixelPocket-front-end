@@ -10,7 +10,7 @@ const NavBar = (props) => {
       {props.user ? (
         <>
           <li>Welcome {props.user.username}</li>
-          <li><Link to="/user/:userId/favorite">Favourite</Link></li>
+          <li><Link to={`/user/${props.user?._id}/favorite`}>Favourite</Link></li>
           <li><Link to="/games/new">Create</Link></li>
           <li><Link to='/' onClick={props.handleSignOut}>Sign Out</Link></li>
         </>

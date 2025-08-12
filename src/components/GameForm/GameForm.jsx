@@ -28,19 +28,18 @@ const GameForm = (props) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value })
     }
 
-    const handleSubmit =  (evt) => {
-        evt.preventDefault()
-        try{
-            if(gameId){
-                props.handleUpdateGame(formData,gameId)
-            }else{
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        try {
+            if (gameId) {
+                props.handleUpdateGame(formData, gameId);
+            } else {
                 props.handleAddGame(formData);
             }
+        } catch (err) {
+            console.error('Submission error:', err);
         }
-        catch(err){
-            console.error('Submission error:', err)
-        }
-    }
+    };
 
     return(
         <main>
