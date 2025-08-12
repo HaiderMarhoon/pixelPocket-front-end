@@ -10,9 +10,9 @@ const CommentForm = (props) => {
 		setFormData({ ...formData, [evt.target.name]: evt.target.value })
 	}
 
-	const handleSubmit = (evt) => {
+	const handleSubmit = async(evt) => {
 		evt.preventDefault()
-		props.handleAddComment(formData)
+		await props.handleAddComment(formData)
 		setFormData({ text: '' })
 	}
 
