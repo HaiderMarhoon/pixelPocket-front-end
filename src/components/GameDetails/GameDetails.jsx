@@ -68,32 +68,36 @@ const GameDetails = ({
     return(
         <main>
             <header>
-            <img src={game.image} alt={game.title} style={{maxWidth: "300"}} />
-            <p>{game.category}</p>
-            <h1>{game.title}</h1>
-            <p>
-
-            </p>
-            <p>Age Rating: {game.ageRate}+</p>
-            <p>
-                <a href={game.gameLink} target="_blank" rel='non'>
-                    Play Game
-                </a>
-            </p>
-            {user === user.id && (
-                <>
-                    <Link to={`/games/${gameId}/edit`}>Edit</Link>
-                    <button onClick={() => handleDeleteGame(gameId)}>Delete</button>
-                </>
-            )}
+                <img src={game.image} alt={game.title} style={{maxWidth: "300"}} />
+                <p>{game.category}</p>
+                <h1>{game.title}</h1>
+                <p>
+                    {game.author?.username} {new Date(game.creatAt).toLocaleDateString()}
+                </p>
+                <p>Age Rating: {game.ageRate}+</p>
+                <p>
+                    <a href={game.gameLink} target="_blank" rel='non'>
+                        Play Game
+                    </a>
+                </p>
+                {user && game.author && game.author._id === user._id && (
+                    <>
+                        <Link to={`/games/${gameId}/edit`}>Edit</Link>
+                        <button onClick={() => handleDeleteGame(gameId)}>Delete</button>
+                    </>
+                )}
             </header>
+            <section>
+                <h2>Description</h2>
+                <p>{game.body}</p>
+            </section>
             <section>
                 <h2>Comments</h2>
                 {user && !editingCommentId && (
                     <CommentForm handleSubmit={handleAddComment} submitLabel="Add Comment" />
                 )}
-                {/* {!game.comments.length && <p>No comments.</p>} */}
-                {game.comments.map((comment) => 
+                {(!game.comments || game.comments.length === 0) && <p>No comments.</p>}
+                {game.comments && game.comments.map((comment) => 
                     editingCommentId === comment.id ? (
                         <CommentForm
                             key={comment._id}
@@ -105,13 +109,12 @@ const GameDetails = ({
                     ):(
                         <div key={comment._id}>
                             <p>
-                                <b>{comment.author.username}</b>:{' '}
-                                {comment.text}
+                                <b>{comment.author?.username}</b>: {comment.text}
                                 <span>
                                 {new Date(comment.createdAt).toLocaleString()}
                                 </span>
                             </p>
-                            {user && comment.author._id === user._id && (
+                            {user && comment.author._id === comment.author._id === user._id && (
                                 <>
                                 <button onClick={() => handleEditComment(comment)}>Edit</button>
                                 <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>

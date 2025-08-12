@@ -78,7 +78,7 @@ const App = () => {
         <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />}/>
         <Route path="/games" element={<GameList games={games} />} />
         <Route path="//games/favorite" element={<GameFavorite games={games} />} />
-        <Route path="/games/:gamesId" element={<GameDetails user={user} />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games}/>} />
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
         <Route path='/' element={<h1>Hello world!</h1>} />
