@@ -85,6 +85,7 @@ const App = () => {
   const handleUpdateGame = async (formData, gameId) =>{
     try{
       const updateGame = await gameService.update(formData, gameId)
+      setGames(games.map(g => g._id === gameId ? updateGame : g))
       navigate(`/games/${gameId}`)
     }
     catch(err){
@@ -133,7 +134,7 @@ const App = () => {
         <Route path="/games" element={<GameList games={games} />} />
 
         <Route path="/user/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
-        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite}  />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleDeleteGame={handleDeleteGame}  />} />
 
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
