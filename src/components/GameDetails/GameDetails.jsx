@@ -5,7 +5,9 @@ import CommentForm from '../CommentForm/CommentForm';
 
 
 const GameDetails = ({
-    user
+    user,
+    handleSetFavorite,
+    handleRemoveFavorite
 }) => {
     const { gamesId: gameId } = useParams()
     const [game, setGame] = useState(null)
@@ -63,9 +65,9 @@ const GameDetails = ({
         navigate('/games')
     }
 
-
-
     if(!game) return <main>Loading...</main>
+
+    const isFavorite = favorite && favorite._id === game._id
 
     return(
         <main>
@@ -93,6 +95,17 @@ const GameDetails = ({
             <section>
                 <h2>Description</h2>
                 <p>{game.body}</p>
+            </section>
+            <section>
+                {user && (
+                    <div>
+                        {isFavorite 
+                            ? <button onClick={() => handleRemoveFavorite(user._id)}>☆</button>
+                            : <button onClick={() => handleSetFavorite(user._id, game._id)}>★</button>
+
+                        }
+                    </div>
+                )}
             </section>
             <section>
                 <h2>Comments</h2>
