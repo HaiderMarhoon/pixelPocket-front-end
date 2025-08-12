@@ -10,7 +10,7 @@ import HomePage from './components/homePage/homePage'
 // add plase
 
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
 import * as favoriteService from './services/favoriteService'
@@ -18,11 +18,12 @@ import { useState , useEffect } from 'react'
 import GameFavorite from './components/GameFavorite/GameFavorite.jsx'
 
 const App = () => {
+
+  const navigate = useNavigate()
   
   const initialState = authService.getUser()
 
   const [user, setUser] = useState(initialState)
-
   const [games , setGames] = useState([])
   const [favorite, setFavorite] = useState([])
 
@@ -67,19 +68,29 @@ const App = () => {
     setUser(res)
   }
 
-  const handleAddGame = async (formData) =>{
-    try{
-      const newGame = await gameService.create(formData)
-      setGames([...games, newGame])
-    }
-    catch(err){
-      console.error('Failed to add game:', err)
-    }
-  }
+  const handleAddGame = async (formData) => {
+      try {
+          const newGame = await gameService.create(formData);
+          setGames([...games, newGame]);
+      } catch (err) {
+          console.error('Failed to add game:', err);
+      }
+  };
   const handleUpdateGame = async (formData, gameId) =>{
     try{
-      const updateGame = await gameService.update(formData,gameId)
+      const updateGame = await gameService.update(formData, gameId)
       navigate(`/games/${gameId}`)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  const handleDeleteGame = async(gameId) =>{
+    try{
+      await gameService.deleteGame(gameId)
+      setGames(games.filter(game => game._id !== gameId))
+      navigate('/games')
     }
     catch(err){
       console.log(err)
@@ -98,10 +109,13 @@ const App = () => {
     <>
       <NavBar user={user} handleSignOut={handleSignOut} />
       <Routes>
-        <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />}/>
+        <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />} />
+        <Route path="/games/:gamesId/edit" element={<GameForm handleUpdateGame={handleUpdateGame} />} />
         <Route path="/games" element={<GameList games={games} />} />
+
         <Route path="/user/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
         <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite} />} />
+
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
         <Route path='/' element={<HomePage  />} />
