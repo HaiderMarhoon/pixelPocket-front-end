@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'
 import CommentForm from '../CommentForm/CommentForm';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const GameDetails = ({
-    user,
-    handleDeleteGame
+    user
 }) => {
     const { gamesId: gameId } = useParams()
     const [game, setGame] = useState(null)
+    const navigate = useNavigate()
     const [editingCommentId, setEditingCommentId] = useState(null)
     const [editingText, setEditingText] = useState('')
 
@@ -54,6 +55,7 @@ const GameDetails = ({
             comments: game.comments.filter(c => c._id !== commentId)
         })
     }
+    // delete game handler
     const handleDeleteGame = async (id) => {
         await gameService.deleteGame(id)
         navigate('/games')
