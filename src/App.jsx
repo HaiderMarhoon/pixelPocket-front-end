@@ -15,6 +15,7 @@ import * as authService from './services/authService.js'
 import * as gameService from './services/gameService'
 import { useState , useEffect } from 'react'
 import GameFavorite from './components/GameFavorite/GameFavorite.jsx'
+import SearchBar from './components/searchBarHome.js/searchBar.jsx'
 
 const App = () => {
   
@@ -71,6 +72,10 @@ const App = () => {
       console.log(err)
     }
   }
+
+    const handleSearch = (query) => {
+    console.log('Searching for:', query);
+  };
 
   return (
     <>
