@@ -54,6 +54,7 @@ const create = async (formData) =>{
     console.log(err)
   }
 }
+
 // GET FAVORITE
 const getFavorite = async (userId) => {
     const token = localStorage.getItem('token');
@@ -82,41 +83,47 @@ const removeFavorite = async (userId, gameId) => {
     return (await res.json()).favorites;
 }
 
+
 const createComment = async (formData, gameId) => {
-  const token = localStorage.getItem('token')
-  const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(formData)
-  })
-  return await res.json()
-}
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+    return await res.json();
+};
 
 const updateComment = async (formData, gameId, commentId) => {
-  const token = localStorage.getItem('token')
-  const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(formData)
-  })
-  return await res.json()
-}
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to update comment');
+    }
+
+    return await res.json(); // Return the updated comment data
+};
 
 const deleteComment = async (gameId, commentId) => {
-  const token = localStorage.getItem('token')
-  await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+    const token = localStorage.getItem('token');
+    await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+};
 
 
 const update = async (formData, gameId) =>{
