@@ -7,7 +7,8 @@ import CommentForm from '../CommentForm/CommentForm';
 
 const GameDetails = ({
     user,
-    handleSetFavorite,
+    favorite,
+    handleAddFavorite,
     handleRemoveFavorite
 }) => {
 
@@ -35,6 +36,11 @@ const GameDetails = ({
         comments: [...prevGame.comments, newComment],
     }));
     };
+
+    const handleEditComment = (comment) => {
+        setEditingCommentId(comment._id)
+        setEditingText(comment.text)
+    }
 
     const handleUpdateComment = async (formData) => {
         await gameService.updateComment({ comment: formData.comment }, gameId, editingCommentId);
@@ -98,7 +104,7 @@ const GameDetails = ({
                     <div>
                         {isFavorite 
                             ? <button onClick={() => handleRemoveFavorite(user._id)}>☆</button>
-                            : <button onClick={() => handleSetFavorite(user._id, game._id)}>★</button>
+                            : <button onClick={() => handleAddFavorite(user._id, game._id)}>★</button>
 
                         }
                     </div>
