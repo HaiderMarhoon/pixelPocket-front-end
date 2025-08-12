@@ -4,7 +4,13 @@ import * as gameService from '../../services/gameService'
 import CommentForm from '../CommentForm/CommentForm';
 
 
-const GameDetails = ({user}) => {
+
+const GameDetails = ({
+    user,
+    handleSetFavorite,
+    handleRemoveFavorite
+}) => {
+
     const { gamesId: gameId } = useParams()
     const [game, setGame] = useState({ comments: [] })
     const navigate = useNavigate()
@@ -47,10 +53,10 @@ const GameDetails = ({user}) => {
         navigate('/games')
     }
 
-
-    
     if(!game) return <main>Loading...</main>
     
+
+    const isFavorite = favorite && favorite._id === game._id
 
     return(
         <main>
@@ -81,6 +87,17 @@ const GameDetails = ({user}) => {
             <section>
                 <h2>Description</h2>
                 <p>{game.body}</p>
+            </section>
+            <section>
+                {user && (
+                    <div>
+                        {isFavorite 
+                            ? <button onClick={() => handleRemoveFavorite(user._id)}>☆</button>
+                            : <button onClick={() => handleSetFavorite(user._id, game._id)}>★</button>
+
+                        }
+                    </div>
+                )}
             </section>
             <section>
                 <h2>Comments</h2>

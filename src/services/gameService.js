@@ -55,6 +55,35 @@ const create = async (formData) =>{
   }
 }
 
+// GET FAVORITE
+const getFavorite = async (userId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch (`${BASE_URL}/${userId}/favorites`, {
+        headers: { Authorization: `Bearer ${token}`}
+    });
+    const data = await res.json();
+    return data.favorites;
+}
+// POST FAVORITE
+const addFavorite = async (userId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`,{
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`}
+    })
+    return (await res.json()).favorites;
+}
+// DELETE FAVORITE
+const removeFavorite = async (userId, gameId) => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/${userId}/favorites/${gameId}`,{
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}`}
+    });
+    return (await res.json()).favorites;
+}
+
+
 const createComment = async (formData, gameId) => {
     const token = localStorage.getItem('token');
     const res = await fetch(`${BASE_URL}/${gameId}/comments`, {
@@ -118,5 +147,14 @@ const update = async (formData, gameId) =>{
 }
 
 export {
-  index,create , show, update,updateComment,deleteComment,createComment
+  index,
+  create,
+  getFavorite,
+  addFavorite,
+  removeFavorite,
+  show, 
+  update,
+  updateComment,
+  deleteComment,
+  createComment
 }
