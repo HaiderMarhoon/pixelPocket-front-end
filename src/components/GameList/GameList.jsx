@@ -44,7 +44,6 @@ const GameList = (props) => {
           ))}
         </div>
       </div>
-
     </main>
   );
 };
