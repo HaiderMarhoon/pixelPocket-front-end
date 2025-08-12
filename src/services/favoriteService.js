@@ -1,35 +1,46 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/user`
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`
 
-// GET FAVORITE
+// GET FAVORITES
 const getFavorite = async (userId) => {
     const token = localStorage.getItem('token');
-    const res = await fetch (`${BASE_URL}/${userId}/favorite`, {
-        headers: { Authorization: `Bearer ${token}`}
+    const res = await fetch(`${BASE_URL}/${userId}/favorite`, {
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}` 
+        }
     });
-    const data = await res.json();
-    return data.favorites;
-}
+    if (!res.ok) throw new Error('Failed to fetch favorites');
+    return await res.json();
+};
+
 // POST FAVORITE
 const addFavorite = async (userId, gameId) => {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`,{
+    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}`}
-    })
-    return (await res.json()).favorites;
-}
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to add favorite');
+    return await res.json();
+};
+
 // DELETE FAVORITE
 const removeFavorite = async (userId, gameId) => {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`,{
+    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`, {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}`}
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     });
-    return (await res.json()).favorites;
-}
+    if (!res.ok) throw new Error('Failed to remove favorite');
+    return await res.json();
+};
 
 export{
-  getFavorite,
-  addFavorite,
-  removeFavorite,
+    getFavorite,addFavorite,removeFavorite
 }

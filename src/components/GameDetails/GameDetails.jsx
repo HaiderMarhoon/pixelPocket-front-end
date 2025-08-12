@@ -53,16 +53,7 @@ const GameDetails = ({
         await gameService.deleteComment(gameId, commentId);
         fetchGame(); 
     };
-    // delete game handler
-    // const handleDeleteGame = async (gameId) => {
-    //     try{
-    //         await gameService.deleteGame(gameId)
-    //         navigate('/games')
-    //     }
-    //     catch(err){
-    //         console.log('Failed', err)
-    //     }
-    // }
+
 
     if(!game) return <main>Loading...</main>
     
@@ -103,9 +94,8 @@ const GameDetails = ({
                 {user && (
                     <div>
                         {isFavorite 
-                            ? <button onClick={() => handleRemoveFavorite(user._id)}>☆</button>
-                            : <button onClick={() => handleAddFavorite(user._id, game._id)}>★</button>
-
+                            ? <button onClick={() => handleAddFavorite(user._id, game._id)}>★</button>
+                            : <button onClick={() => handleRemoveFavorite(user._id)}>☆</button>
                         }
                     </div>
                 )}
@@ -126,7 +116,6 @@ const GameDetails = ({
                         <div key={comment._id}>
                             <p>
                                 <b>{comment.author?.username || 'Unknown Author'}</b>: {comment.comment}
-                                <span> {new Date(comment.createdAt).toLocaleString()}</span>
                             </p>
                             {user && comment.author?._id === user._id && (
                                 <>

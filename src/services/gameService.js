@@ -103,7 +103,7 @@ const update = async (formData, gameId) =>{
     const res = await fetch(`${BASE_URL}/${gameId}`, {
       method:"PUT",
       headers:{
-        'Content-Type':'application',
+        'Content-Type': 'application/json',
         Authorization:`Bearer ${token}`
       },
       body:JSON.stringify(formData)
