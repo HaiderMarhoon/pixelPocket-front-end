@@ -54,7 +54,7 @@ const GameForm = (props) => {
                         <label htmlFor="title">Title</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" name="title" id="title" value={formData.title}
+                        <input type="text" name="title" id="title-form" value={formData.title}
                     onChange={handleChange} />
                     </div>
                     <div class="col-26">
@@ -74,8 +74,8 @@ const GameForm = (props) => {
                     <div class="col-26">
                         <label htmlFor="body">Body</label>
                     </div>
-                    <div class="col-7">
-                        <input type="text" name="body" id="body" value={formData.body}
+                    <div class="col-75">
+                        <textarea type="text" name="body" id="body" value={formData.body}
                     onChange={handleChange} />
                     </div>
                     <div class="col-26">
