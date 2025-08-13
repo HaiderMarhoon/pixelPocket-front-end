@@ -1,3 +1,4 @@
+import GameForm from "../GameForm/GameForm";
 import GameList from "../GameList/GameList"
 
 
@@ -6,34 +7,67 @@ const HomePage = () => {
     const gamesData = [
     {
         _id: '68998f5ec4596ff3498f4018',
-        title: 'EA Sport',
+        title: '',
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
     
     {
         _id: '68998f5ec4596ff3498f4018',
-        title: 'EA Sport',
+        title: '',
+        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
+    },
+
+    {
+        _id: '68998f5ec4596ff3498f4018',
+        title: '',
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
 
         {
         _id: '68998f5ec4596ff3498f4018',
-        title: 'EA Sport',
+        title: '',
+        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
+    },
+    
+    {
+        _id: '68998f5ec4596ff3498f4018',
+        title: '',
+        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
+    },
+
+    {
+        _id: '68998f5ec4596ff3498f4018',
+        title: '',
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
 
         {
         _id: '68998f5ec4596ff3498f4018',
-        title: 'EA Sport',
+        title: '',
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
+
+    {
+        _id: '68998f5ec4596ff3498f4018',
+        title: '',
+        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
+    },
+
+
 ];
+
+const handleButton = () => {
+    <GameForm />
+}
 
     return (
         
         <div>
-        <div id="home-img"></div>
-        <h1>Choose Game</h1>
+        <div id="home-img">
+            <button id="CreateBtn" onClick={handleButton}>Create Games</button>
+        </div>
+        <h1 id="chooseGameTitle">Choose Game</h1>
+        
 
         <div id="left-item">
             <GameList games={gamesData} showSearch={false} showTitle={false} />

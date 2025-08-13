@@ -125,8 +125,11 @@ const App = () => {
     console.log('Searching for:', query);
   };
 
+
   return (
+    
     <>
+
       <NavBar user={user} handleSignOut={handleSignOut} />
       <Routes>
         <Route path='/games/new' element={<GameForm handleAddGame={handleAddGame} />} />
