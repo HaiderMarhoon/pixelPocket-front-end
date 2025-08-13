@@ -51,7 +51,7 @@ const SignUp = (props) => {
       <h1>Sign up Form</h1>
       {/* add error message display to form */}
       {error}
-      <form onSubmit={handleSubmit}>
+      <form className='com-form' onSubmit={handleSubmit}>
         <div class="col-26">
           <label>Username:</label>
         </div>
