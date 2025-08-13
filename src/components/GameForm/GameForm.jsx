@@ -46,7 +46,7 @@ const GameForm = (props) => {
 
     return(
         <main>
-            <form onSubmit={handleSubmit}>
+            <form className="com-form" onSubmit={handleSubmit}>
                 <h1>{gamesId ? 'Edit Game' : 'New Game'}</h1>
                 
                 <div class="col-26">

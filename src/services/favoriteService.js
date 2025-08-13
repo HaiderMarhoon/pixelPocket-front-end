@@ -10,7 +10,8 @@ const getFavorite = async (userId) => {
         }
     });
     if (!res.ok) throw new Error('Failed to fetch favorites');
-    return await res.json();
+    const data = await res.json();
+    return data.favorite;
 };
 
 // POST FAVORITE
@@ -24,13 +25,14 @@ const addFavorite = async (userId, gameId) => {
         }
     });
     if (!res.ok) throw new Error('Failed to add favorite');
-    return await res.json();
+    const data = await res.json();
+    return data.favorite;
 };
 
 // DELETE FAVORITE
-const removeFavorite = async (userId, gameId) => {
+const removeFavorite = async (userId) => {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${BASE_URL}/${userId}/favorite/${gameId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/favorite/`, {
         method: 'DELETE',
         headers: { 
             'Content-Type': 'application/json',
@@ -38,7 +40,8 @@ const removeFavorite = async (userId, gameId) => {
         }
     });
     if (!res.ok) throw new Error('Failed to remove favorite');
-    return await res.json();
+    const data = await res.json();
+    return data.favorite;
 };
 
 export{

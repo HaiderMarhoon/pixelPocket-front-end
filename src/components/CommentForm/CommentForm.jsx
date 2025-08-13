@@ -25,7 +25,7 @@ const CommentForm = (props) => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form  className="com-form" onSubmit={handleSubmit}>
 			<div class="col-26">
 
 				<label htmlFor="text-input">Your comment:</label>

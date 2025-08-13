@@ -30,7 +30,7 @@ const SignIn = (props) => {
   return (
     <main>
       <h1>Sign In Form</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="com-form" onSubmit={handleSubmit}>
         <div class="col-26">
           <label>Username Or Email:</label>
         </div>
