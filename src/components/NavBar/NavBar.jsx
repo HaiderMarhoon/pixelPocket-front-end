@@ -31,6 +31,8 @@ const NavBar = (props) => {
               <li><Link to="/games/new">Create</Link></li>
             </>
           )}
+        </ul>
+      </nav>
 
 <nav>
       <ul>
