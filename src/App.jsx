@@ -16,7 +16,6 @@ import * as gameService from './services/gameService'
 import * as favoriteService from './services/favoriteService'
 import { useState , useEffect } from 'react'
 import GameFavorite from './components/GameFavorite/GameFavorite.jsx'
-import SearchBar from './components/searchBarHome.js/searchBar.jsx'
 
 const App = () => {
 
