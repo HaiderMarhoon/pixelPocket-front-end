@@ -10,6 +10,7 @@ const GameFavorite = ({ favorite, handleRemoveFavorite }) => {
         {favorite.length === 0 ? (
           <p>No favorite games yet.</p>
         ) : (
+          <div id='browser-item'> 
           <ul>
             {favorite.map(game => (
               <li key={game._id}> 
@@ -27,7 +28,8 @@ const GameFavorite = ({ favorite, handleRemoveFavorite }) => {
                 </button>
               </li>
             ))}
-          </ul>
+            </ul>
+          </div>
         )}
       </div>
     </main>

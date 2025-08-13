@@ -81,9 +81,9 @@ const App = () => {
   };
   const handleUpdateGame = async (formData, gamesId) =>{
     try{
-      const updateGame = await gameService.update(formData, gameId)
-      setGames(games.map(g => g._id === gameId ? updateGame : g))
-      navigate(`/games/${gameId}`)
+      const updateGame = await gameService.update(formData, gamesId)
+      setGames(games.map(g => g._id === gamesId ? updateGame : g))
+      navigate(`/games/${gamesId}`)
     }
     catch(err){
       console.log(err)
@@ -100,29 +100,21 @@ const App = () => {
       }
   };
   
-  // const handleGetFavorite = async (userId) =>{
-  //   try{
-  //     const updatedFavorites = await favoriteService.getFavorite(userId)
-  //     setFavorite(updatedFavorites)
-  //   }
-  //   catch(err){
-  //     console.error('Failed to add favorite:', err);
-  //   }
-  // }
-  
   const handleAddFavorite = async (gamesId, userId) => {
     try {
       const updatedFavorites = await favoriteService.addFavorite(userId, gamesId);
       setFavorite(updatedFavorites);
+      navigate(`/users/${userId}/favorite`)
     } catch (err) {
       console.error('Failed to add favorite:', err);
     }
   };
 
-  const handleRemoveFavorite = async (gamesId) => {
+  const handleRemoveFavorite = async (gamesId,userId) => {
     try {
         const updatedFavorites = await favoriteService.removeFavorite(user._id, gamesId);
         setFavorite(updatedFavorites);
+        navigate("/games")
     } catch (err) {
         console.error('Failed to remove favorite:', err);
     }
