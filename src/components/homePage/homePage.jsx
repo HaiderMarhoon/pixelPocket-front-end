@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import GameForm from "../GameForm/GameForm";
 import GameList from "../GameList/GameList"
 
@@ -64,7 +65,7 @@ const handleButton = () => {
         
         <div>
         <div id="home-img">
-            <button id="CreateBtn" onClick={handleButton}>Create Games</button>
+            <Link to="/games/new"><button id="CreateBtn" onClick={handleButton}>Create Games</button></Link>
         </div>
         <h1 id="chooseGameTitle">Choose Game</h1>
         

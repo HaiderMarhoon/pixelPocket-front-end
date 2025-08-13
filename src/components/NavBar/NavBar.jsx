@@ -27,7 +27,7 @@ const NavBar = (props) => {
           <li><Link to="/games">Browser</Link></li>
           {props.user && (
             <>
-              <li><Link to={`/user/${props.user.id}/favorite`}>Favourite</Link></li>
+              <li><Link to={`/users/${props.user._id}/favorite`}>Favourite</Link></li>
               <li><Link to="/games/new">Create</Link></li>
             </>
           )}
