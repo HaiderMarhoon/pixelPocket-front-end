@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import * as gameService from "../../services/gameService"
 
 const GameForm = (props) => {
-    const { gameId } = useParams()
+    const { gamesId } = useParams()
+    console.log(gamesId)
+    const navegite = useNavigate()
 
     const initialState = {
         title: "",
@@ -18,60 +20,87 @@ const GameForm = (props) => {
 
     useEffect(() => {
             const fetchGame = async () => {
-                const data = await gameService.show(gameId)
+                const data = await gameService.show(gamesId)
                 setFormData(data)
             }
-            if (gameId) fetchGame()
-    }, [gameId])
+            if (gamesId) fetchGame()
+    }, [gamesId])
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value })
     }
 
-    const handleSubmit =  (evt) => {
-        evt.preventDefault()
-        try{
-            if(gameId){
-                props.handleUpdateGame(formData,gameId)
-            }else{
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        try {
+            if (gamesId) {
+                props.handleUpdateGame(formData, gamesId);
+            } else {
                 props.handleAddGame(formData);
             }
+            navegite("/games")
+        } catch (err) {
+            console.error('Submission error:', err);
         }
-        catch(err){
-            console.error('Submission error:', err)
-        }
-    }
+    };
 
     return(
         <main>
             <form onSubmit={handleSubmit}>
-                <h1>{gameId ? 'Edit Game' : 'New Game'}</h1>
+                <h1>{gamesId ? 'Edit Game' : 'New Game'}</h1>
+                
+                <div class="col-25">
+                    <label htmlFor="title">Title</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="title" id="title" value={formData.title}
+                onChange={handleChange} />
+                </div>
+                <div class="col-25">
+                    <label htmlFor="category">Category</label>
+                </div>
+                <div class="col-75">
+                    <select name="category" id="category" value={formData.category}
+                    onChange={handleChange}>
+                        <option value="action">action</option>
+                        <option value="sport">sport</option>
+                        <option value="Fighting">Fighting</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Puzzle">Puzzle</option>
+                        <option value="MMO">MMO</option>
+                    </select>
+                </div>
+                <div class="col-25">
+                    <label htmlFor="body">Body</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="body" id="body" value={formData.body}
+                onChange={handleChange} />
+                </div>
+                <div class="col-25">
+                    <label htmlFor="ageRate">age Rate</label>
+                </div>
+                <div class="col-75">
 
-                <label htmlFor="title">Title</label>
-                <input type="text" name="title" id="title" value={formData.title}
+                    <input type="Number" name="ageRate" id="ageRate" value={formData.ageRate}
                 onChange={handleChange} />
-                <label htmlFor="category">Category</label>
-                <select name="category" id="category" value={formData.category}
-                onChange={handleChange}>
-                    <option value="action">action</option>
-                    <option value="sport">sport</option>
-                    <option value="Fighting">Fighting</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Puzzle">Puzzle</option>
-                    <option value="MMO">MMO</option>
-                </select>
-                <label htmlFor="body">Body</label>
-                <input type="text" name="body" id="body" value={formData.body}
+                </div>
+                <div class="col-25">
+
+                    <label htmlFor="image">Image</label>
+                </div>
+                <div class="col-75">
+
+                    <input type="text" name="image" id="image" value={formData.image}
                 onChange={handleChange} />
-                <label htmlFor="ageRate">age Rate</label>
-                <input type="Number" name="ageRate" id="ageRate" value={formData.ageRate}
+                </div>
+                <div class="col-25">
+                    <label htmlFor="gameLink">game Link</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="gameLink" id="gameLink" value={formData.gameLink}
                 onChange={handleChange} />
-                <label htmlFor="image">Image</label>
-                <input type="text" name="image" id="image" value={formData.image}
-                onChange={handleChange} />
-                <label htmlFor="gameLink">gameLink</label>
-                <input type="text" name="gameLink" id="gameLink" value={formData.gameLink}
-                onChange={handleChange} />
+                </div>
 
                 <button type="submit">Submit</button>
             </form>

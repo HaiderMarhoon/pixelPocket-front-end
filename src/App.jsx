@@ -37,11 +37,16 @@ const App = () => {
   },[])
 
   useEffect(() => {
-    const fetchFavorites = async (gameId) => {
-      if(user){
-        const fav = await favoriteService.getFavorite(user._id, gameId)
-        setFavorite(fav)
-      }else{
+    const fetchFavorites = async () => {
+      if(user) {
+        try {
+          const fav = await favoriteService.getFavorite(user._id)
+          setFavorite(fav)
+        } catch (err) {
+          console.error("Failed to fetch favorites:", err)
+          setFavorite([])
+        }
+      } else {
         setFavorite([])
       }
     }
@@ -77,9 +82,10 @@ const App = () => {
           console.error('Failed to add game:', err);
       }
   };
-  const handleUpdateGame = async (formData, gameId) =>{
+  const handleUpdateGame = async (formData, gamesId) =>{
     try{
       const updateGame = await gameService.update(formData, gameId)
+      setGames(games.map(g => g._id === gameId ? updateGame : g))
       navigate(`/games/${gameId}`)
     }
     catch(err){
@@ -87,24 +93,33 @@ const App = () => {
     }
   }
 
-  const handleDeleteGame = async(gameId) =>{
-    try{
-      await gameService.deleteGame(gameId)
-      setGames(games.filter(game => game._id !== gameId))
-      navigate('/games')
+  const handleDeleteGame = async (gamesId) => {
+      try {
+          await gameService.deleteGame(gamesId);
+          setGames(games.filter(game => game._id !== gamesId));
+          navigate('/games');
+      } catch (err) {
+          console.log('Failed to delete game:', err);
+      }
+  };
+  
+  const handleAddFavorite = async (gamesId) => {
+    try {
+      const updatedFavorites = await favoriteService.addFavorite(user._id, gamesId);
+      setFavorite(updatedFavorites);
+    } catch (err) {
+      console.error('Failed to add favorite:', err);
     }
-    catch(err){
-      console.log(err)
+  };
+
+  const handleRemoveFavorite = async (gamesId) => {
+    try {
+      const updatedFavorites = await favoriteService.removeFavorite(user._id, gamesId);
+      setFavorite(updatedFavorites);
+    } catch (err) {
+      console.error('Failed to remove favorite:', err);
     }
-  }
-  const handleAddFavorite = async (gameId) => {
-    const updated = await favoriteService.addFavorite(user._id, gameId)
-    setFavorite(updated)
-  }
-  const handleRemoveFavorite = async (gameId) => {
-    const updated = await favoriteService.removeFavorite(user._id, gameId)
-    setFavorite(updated)
-  }
+  };
 
     const handleSearch = (query) => {
     console.log('Searching for:', query);
@@ -121,8 +136,10 @@ const App = () => {
         <Route path="/games/:gamesId/edit" element={<GameForm handleUpdateGame={handleUpdateGame} />} />
         <Route path="/games" element={<GameList games={games} />} />
 
-        <Route path="/user/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
-        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite} />} />
+
+        <Route path="/users/:userId/favorite" element={<GameFavorite favorite={favorite} handleRemoveFavorite={handleRemoveFavorite} />} />
+        <Route path="/games/:gamesId" element={<GameDetails user={user} games={games} favorite={favorite} handleAddFavorite={handleAddFavorite} handleRemoveFavorite={handleAddFavorite} handleDeleteGame={handleDeleteGame} />} />
+
 
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
