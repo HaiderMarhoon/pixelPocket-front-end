@@ -52,21 +52,37 @@ const SignUp = (props) => {
       {/* add error message display to form */}
       {error}
       <form onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input type="text" name='username' onChange={handleChange} />
-        <br />
-        <label>Email:</label>
-        <input type="text" name='email' onChange={handleChange} />
-        <br />
-        <label>age:</label>
-        <input type="text" name='age' onChange={handleChange} />
-        <br />
-        <label>Password:</label>
-        <input type="password" name='password' onChange={handleChange} />
-        <br />
-        <label>Confirm Password:</label>
-        <input type="password" name="passwordConf" onChange={handleChange} />
-        <br />
+        <div class="col-26">
+          <label>Username:</label>
+        </div>
+        <div class="col-75">
+          <input type="text" name='username' onChange={handleChange} />
+        </div>
+        <div class="col-26">
+          <label>Email:</label>
+        </div>
+        <div class="col-75">
+          <input type="text" name='email' onChange={handleChange} />
+        </div>
+        <div class="col-26">
+          <label>age:</label>
+        </div>
+        <div class="col-75">
+          <input type="text" name='age' onChange={handleChange} />
+        </div>
+        <div class="col-26">
+          <label>Password:</label>
+        </div>
+        <div class="col-75">
+          <input type="password" name='password' onChange={handleChange} />
+        </div>
+        <div class="col-26">
+          <label>Confirm Password:</label>
+        </div>
+        <div class="col-75">
+          <input type="password" name="passwordConf" onChange={handleChange} />
+        </div>
+
         <button type="submit" disabled={formIsInvalid}>Sign up</button>
       </form>
     </main>
