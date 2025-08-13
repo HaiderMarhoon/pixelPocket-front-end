@@ -83,11 +83,9 @@ const handleDeleteComment = async (commentId) => {
             const response = await gameService.addRating(gameId, { user: user._id, value: rating });
             const avgRating = response.average;
             const ratings = response.ratings; 
-
-            console.log("Fetched average rating:", avgRating);
             setAverageRating(avgRating);
             setRatings(ratings);
-            setUserRating(rating); // Set the user's rating
+            setUserRating(rating); 
         } catch (error) {
             console.error("Error rating the game:", error);
         }
