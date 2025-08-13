@@ -73,7 +73,6 @@ const GameDetails = ({
         fetchGame(); 
     };
 
-
     const handleRateGame = async (rating) => {
         if (!user) return; 
         try {

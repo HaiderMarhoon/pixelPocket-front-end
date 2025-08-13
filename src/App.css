@@ -274,11 +274,13 @@ ul.topnav li.right {float: right;}
 }
 
 
+
 #searchBar{
     transform: translateY(-70%);
     background-color: #A5A4A8; 
 
     color: white; 
+
     border: none;
     border-radius: 20px; 
     padding: 10px 20px; 
