@@ -41,7 +41,7 @@ const GameList = ({ games, showSearch = true, showTitle = true }) => {
           {filteredGameBrowser.map((game) => (
             <Link key={game._id} to={`/games/${game._id}`}>
               <article>
-                <img src={game.image} alt={game.title} />
+                <img id='browser-item-img' src={game.image} alt={game.title} />
                 <h2>{game.title}</h2>
               </article>
             </Link>

@@ -139,6 +139,42 @@ const deleteGame = async (gameId) => {
     console.log(err)
   }
 };
+const addRating = async (gameId, ratingData) => {
+    const token = localStorage.getItem('token');
+    console.log("Deleting game with token:", token);
+    const response = await fetch(`${BASE_URL}/${gameId}/ratings`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+             Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(ratingData),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to add rating');
+    }
+    const updatedGame = await response.json();
+    console.log("Updated game after rating:", updatedGame);
+    return updatedGame;
+};
+
+const getAverageRating = async (gameId) => {
+  const token = localStorage.getItem('token');
+  console.log("Deleting game with token:", token);
+  const response = await fetch(`${BASE_URL}/${gameId}/ratings`,{
+    headers:{
+      Authorization : `Bearer ${token}`
+    }
+  });
+  const ratings = await response.json();
+
+  if (!Array.isArray(ratings) || ratings.length === 0) return 0;
+
+  const sum = ratings.reduce((acc, r) => acc + r.value, 0);
+  return sum / ratings.length;
+};
+
+
 
 export {
 
@@ -149,6 +185,8 @@ export {
   updateComment,
   deleteComment,
   createComment,
-  deleteGame
+  deleteGame,
+  addRating,
+  getAverageRating,
 
 }

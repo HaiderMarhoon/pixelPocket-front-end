@@ -26,15 +26,22 @@ const CommentForm = (props) => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<label htmlFor="text-input">Your comment:</label>
-			<textarea 
-            required
+			<div class="col-26">
+
+				<label htmlFor="text-input">Your comment:</label>
+			</div>
+			<div class="col-75">
+
+				<textarea 
+				required
+				className='text-comment'
 				type="text"
 				name="comment"
 				id="text-input"
 				value={formData.comment}
 				onChange={handleChange}
-			/>
+				/>
+			</div>
 			<button type="submit">SUBMIT COMMENT</button>
 		</form>
 	)
