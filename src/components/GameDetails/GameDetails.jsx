@@ -37,9 +37,6 @@ const GameDetails = ({
         }
     };
 
-
-
-
     useEffect(() => {
         fetchGame();
         fetchAverageRating();
@@ -61,17 +58,15 @@ const GameDetails = ({
     };
 
     const handleUpdateComment = async (formData) => {
-        await gameService.updateComment({ comment: formData.comment }, gameId, editingCommentId);
-        fetchGame(); 
-        setEditingCommentId(null);
-        setEditingText('');
+    await gameService.updateComment({ comment: formData.comment }, gameId, editingCommentId);
+    fetchGame(); 
+    setEditingCommentId(null);
+    setEditingText('');
     };
 
 const handleDeleteComment = async (commentId) => {
     try {
         await gameService.deleteComment(gameId, commentId);
-
-        // Remove comment locally to avoid extra API call
         setGame(prevGame => ({
             ...prevGame,
             comment: prevGame.comment.filter(c => c._id !== commentId)
