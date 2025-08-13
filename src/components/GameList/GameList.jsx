@@ -19,11 +19,7 @@ const GameList = ({ games, showSearch = true, showTitle = true }) => {
   return (
     <main>
       <div id='browser'>
-        {showTitle && (
-          <div id='browser-title'>
-            <h1>Game Browser</h1>
-          </div>
-        )}
+  
 
         {showSearch && (
           <form onSubmit={handleSearchBrowserSubmit}>
@@ -31,17 +27,24 @@ const GameList = ({ games, showSearch = true, showTitle = true }) => {
               type='text'
               placeholder='Search'
               value={search}
+              id="searchBar"
               onChange={handleSearchBrowserChange}
             />
-            <button type='submit'>Search</button>
-          </form>
+          </form> 
+          
+        )}
+
+        {showTitle && (
+          <div id='browser-title'>
+            <h1>Game Browser</h1>
+          </div>
         )}
 
         <div id='browser-item'>
           {filteredGameBrowser.map((game) => (
             <Link key={game._id} to={`/games/${game._id}`}>
               <article>
-                <img src={game.image} alt={game.title} />
+                <img id='browser-item-img' src={game.image} alt={game.title} />
                 <h2>{game.title}</h2>
               </article>
             </Link>
