@@ -1,43 +1,39 @@
 import { Link } from 'react-router-dom'
 
-
 const GameFavorite = ({ favorite, handleRemoveFavorite }) => {
-  if (!favorite) return <p>Loading favorites...</p>;
-  
+  if (favorite === undefined) return <p>Loading favorite...</p>;
+
   return (
     <main>
-      <h1>Favorite Games</h1>
-      {favorite.length === 0 ? (
-        <p>No favorite games yet.</p>
+      <h1>Favorite Game</h1>
+      {!favorite ? (
+        <p>No favorite game yet.</p>
       ) : (
-        favorite.map((game) => (
-          <div key={game._id} className="game-card"> {/* Key prop added here */}
-            <Link to={`/games/${game._id}`}>
-              <article>  
-                <header>
-                  <h2>{game.title}</h2>
-                  {game.author && (
-                    <p>By {game.author.username}</p>
-                  )}
-                </header>
-                {game.image && <img src={game.image} alt={game.title} />}
-                <p>{game.body}</p>
-              </article>
-            </Link>
-            <button 
-              onClick={(e) => {
-                e.preventDefault();
-                handleRemoveFavorite(game._id);
-              }}
-            >
-              Remove Favorite
-            </button>
-          </div>
-        ))
+        <div className="game-card">
+          <Link to={`/games/${favorite._id}`}>
+            <article>
+              <header>
+                <h2>{favorite.title}</h2>
+                {favorite.author && (
+                  <p>By {favorite.author.username}</p>
+                )}
+              </header>
+              {favorite.image && <img src={favorite.image} alt={favorite.title} />}
+              <p>{favorite.body}</p>
+            </article>
+          </Link>
+          <button
+            onClick={e => {
+              e.preventDefault()
+              handleRemoveFavorite(favorite._id)
+            }}
+          >
+            Remove Favorite
+          </button>
+        </div>
       )}
     </main>
   )
 }
-
 
 export default GameFavorite
