@@ -67,10 +67,20 @@ const GameDetails = ({
         setEditingText('');
     };
 
-    const handleDeleteComment = async (commentId) => {
+const handleDeleteComment = async (commentId) => {
+    try {
         await gameService.deleteComment(gameId, commentId);
-        fetchGame(); 
-    };
+
+        // Remove comment locally to avoid extra API call
+        setGame(prevGame => ({
+            ...prevGame,
+            comment: prevGame.comment.filter(c => c._id !== commentId)
+        }));
+    } catch (err) {
+        console.error("Failed to delete comment:", err);
+    }
+};
+
 
     const handleRateGame = async (rating) => {
         if (!user) return; 

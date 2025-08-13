@@ -88,13 +88,22 @@ const updateComment = async (formData, gameId, commentId) => {
 
 const deleteComment = async (gameId, commentId) => {
     const token = localStorage.getItem('token');
-    await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
+    const res = await fetch(`${BASE_URL}/${gameId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to delete comment');
+    }
+
+    return await res.json(); // Optional, depends if API returns deleted comment info
 };
+
+
 
 
 const update = async (formData, gameId) =>{
