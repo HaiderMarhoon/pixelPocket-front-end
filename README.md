@@ -7,6 +7,7 @@
 - 2-Khaled Jamal
 - 3-Zainab Alabbood
 
+
 ## 👾 App Description:
 
 Pixel-Pocket is a web app that allows users to explore a comprehensive list of games. Users can create an account, log in, and manage their personal game collection effortlessly. The app enables you to create new game lists by adding detailed information, including ratings for each game. You can easily edit or delete entries, leave comments, and mark games as favorites. Additionally, Pixel-Pocket features a search bar on the main page, making it simple to find the games you want. Discover, organize, and enjoy your gaming experience with Pixel-Pocket!
