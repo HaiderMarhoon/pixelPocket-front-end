@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Coiny&display=swap');
+
 #root {
   margin: 0 auto;
   padding-top: 2rem;
@@ -16,7 +18,7 @@ html, body {
   background-color: #090314;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: sans-serif;
+  font-family: 'Coiny', cursive;
   --primary: #00a0df;
   --background: #f2f4f8;
   --card-background: white;
@@ -243,7 +245,7 @@ ul.topnav li.right {float: right;}
 #left-item{
   float: left;
   width: 50%;
-  padding-bottom: 130px;
+  padding-bottom: 150px;
   margin-left: 40px;
   border-radius: 20px; 
 }
@@ -272,11 +274,13 @@ ul.topnav li.right {float: right;}
 }
 
 
+
 #searchBar{
     transform: translateY(-70%);
     background-color: #A5A4A8; 
 
     color: white; 
+
     border: none;
     border-radius: 20px; 
     padding: 10px 20px; 
@@ -328,7 +332,7 @@ padding: 30px;
 #title {
   color: white;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 35px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -370,7 +374,7 @@ padding: 30px;
 #navbarItem a {
   color: white;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 20px;
 }
 
 #navbarItem a:hover {
