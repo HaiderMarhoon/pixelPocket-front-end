@@ -1,5 +1,6 @@
 import GameForm from "../GameForm/GameForm";
 import GameList from "../GameList/GameList"
+import { Link } from "react-router-dom";
 
 
 const HomePage = () => {
@@ -23,7 +24,7 @@ const HomePage = () => {
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
 
-        {
+    {
         _id: '68998f5ec4596ff3498f4018',
         title: '',
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
@@ -41,19 +42,6 @@ const HomePage = () => {
         image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
     },
 
-        {
-        _id: '68998f5ec4596ff3498f4018',
-        title: '',
-        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
-    },
-
-    {
-        _id: '68998f5ec4596ff3498f4018',
-        title: '',
-        image: 'https://cdn2.unrealengine.com/egs-easportsfc25showcase-eacanada-demo-g1a-00-1920x1080-5130213edd40.jpg',
-    },
-
-
 ];
 
 const handleButton = () => {
@@ -64,7 +52,7 @@ const handleButton = () => {
         
         <div>
         <div id="home-img">
-            <button id="CreateBtn" onClick={handleButton}>Create Games</button>
+            <Link to="/games/new"><button id="CreateBtn" onClick={handleButton}>Create Games</button></Link>
         </div>
         <h1 id="chooseGameTitle">Choose Game</h1>
         

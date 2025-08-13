@@ -19,8 +19,7 @@ const GameList = ({ games, showSearch = true, showTitle = true }) => {
   return (
     <main>
       <div id='browser'>
-  
-
+        
         {showSearch && (
           <form onSubmit={handleSearchBrowserSubmit}>
             <input
