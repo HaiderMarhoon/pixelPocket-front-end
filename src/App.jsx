@@ -119,12 +119,12 @@ const App = () => {
     }
   };
 
-  const handleRemoveFavorite = async (gamesId, userId) => {
+  const handleRemoveFavorite = async (gamesId) => {
     try {
-      const updatedFavorites = await favoriteService.removeFavorite(userId, gamesId);
-      setFavorite(updatedFavorites);
+        const updatedFavorites = await favoriteService.removeFavorite(user._id, gamesId);
+        setFavorite(updatedFavorites);
     } catch (err) {
-      console.error('Failed to remove favorite:', err);
+        console.error('Failed to remove favorite:', err);
     }
   };
 

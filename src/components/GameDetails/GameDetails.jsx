@@ -110,7 +110,7 @@ const GameDetails = ({
                     </button>
                 ))}
                 <p>Average Rating: {averageRating.toFixed(1)} ⭐</p>
-                {user && userRating > 0 && <p>Your Rating: {userRating} ⭐</p>} {/* Display user's rating */}
+                {user && userRating > 0 && <p>Your Rating: {userRating} ⭐</p>} 
             </div>
         );
     };
