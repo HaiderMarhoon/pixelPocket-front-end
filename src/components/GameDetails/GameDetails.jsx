@@ -38,7 +38,7 @@ const GameDetails = ({
         }
     };
 
-  
+
 
 
     useEffect(() => {
@@ -72,7 +72,6 @@ const GameDetails = ({
         await gameService.deleteComment(gameId, commentId);
         fetchGame(); 
     };
- 
 
     const handleRateGame = async (rating) => {
         if (!user) return; 
