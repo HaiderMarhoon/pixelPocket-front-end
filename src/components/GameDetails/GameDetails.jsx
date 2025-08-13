@@ -38,16 +38,7 @@ const GameDetails = ({
         }
     };
 
-    const fetchAverageRating = async () => {
-        try {
-            const avgData = await gameService.getAverageRating(gameId);
-            console.log("Fetched average rating:", avgData);
-            setAverageRating(avgData);
-        } catch (err) {
-            console.error("Error fetching average rating:", err);
-            setAverageRating(0);
-        }
-    };
+  
 
 
     useEffect(() => {
@@ -81,17 +72,7 @@ const GameDetails = ({
         await gameService.deleteComment(gameId, commentId);
         fetchGame(); 
     };
-    const handleRateGame = async (rating) => {
-        if (!user) return; 
-        try {
-            await gameService.addRating(gameId, { user: user._id, value: rating });
-            const avgRating = await gameService.getAverageRating(gameId);
-            console.log("Fetched average rating:", avgRating);
-            setAverageRating(avgRating);
-        } catch (error) {
-            console.error("Error rating the game:", error);
-        }
-    };
+ 
 
     const handleRateGame = async (rating) => {
         if (!user) return; 
