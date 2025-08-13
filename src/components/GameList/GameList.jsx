@@ -21,7 +21,7 @@ const GameList = ({ games, showSearch = true, showTitle = true }) => {
       <div id='browser'>
         
         {showSearch && (
-          <form onSubmit={handleSearchBrowserSubmit}>
+          <form className="search" onSubmit={handleSearchBrowserSubmit}>
             <input
               type='text'
               placeholder='Search'

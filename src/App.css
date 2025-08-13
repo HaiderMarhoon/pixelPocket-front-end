@@ -69,12 +69,13 @@ a {
   text-decoration: none;
 }
 
-form {
+.com-form {
   width: 100%;
   height: 100%;
   display: flex;
   border-radius: 5px;
   flex-direction: column;
+  background-color: #9a78d9;
 }
 
 
@@ -270,9 +271,11 @@ ul.topnav li.right {float: right;}
   transform: translateY(-130%);
 }
 
+
 #searchBar{
     transform: translateY(-70%);
     background-color: #A5A4A8; 
+
     color: white; 
     border: none;
     border-radius: 20px; 
@@ -281,6 +284,7 @@ ul.topnav li.right {float: right;}
     margin-top: 50px;
     width: 300px;
 }
+
 
 #browser-item{
   display: grid;

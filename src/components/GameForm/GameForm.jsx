@@ -46,17 +46,17 @@ const GameForm = (props) => {
 
     return(
         <main>
-            <form onSubmit={handleSubmit}>
+            <form className="com-form" onSubmit={handleSubmit}>
                 <h1>{gamesId ? 'Edit Game' : 'New Game'}</h1>
                 
-                <div class="col-25">
+                <div class="col-26">
                     <label htmlFor="title">Title</label>
                 </div>
                 <div class="col-75">
                     <input type="text" name="title" id="title" value={formData.title}
                 onChange={handleChange} />
                 </div>
-                <div class="col-25">
+                <div class="col-26">
                     <label htmlFor="category">Category</label>
                 </div>
                 <div class="col-75">
@@ -70,14 +70,14 @@ const GameForm = (props) => {
                         <option value="MMO">MMO</option>
                     </select>
                 </div>
-                <div class="col-25">
+                <div class="col-26">
                     <label htmlFor="body">Body</label>
                 </div>
-                <div class="col-75">
+                <div class="col-7">
                     <input type="text" name="body" id="body" value={formData.body}
                 onChange={handleChange} />
                 </div>
-                <div class="col-25">
+                <div class="col-26">
                     <label htmlFor="ageRate">age Rate</label>
                 </div>
                 <div class="col-75">
@@ -85,7 +85,7 @@ const GameForm = (props) => {
                     <input type="Number" name="ageRate" id="ageRate" value={formData.ageRate}
                 onChange={handleChange} />
                 </div>
-                <div class="col-25">
+                <div class="col-26">
 
                     <label htmlFor="image">Image</label>
                 </div>
@@ -94,7 +94,7 @@ const GameForm = (props) => {
                     <input type="text" name="image" id="image" value={formData.image}
                 onChange={handleChange} />
                 </div>
-                <div class="col-25">
+                <div class="col-26">
                     <label htmlFor="gameLink">game Link</label>
                 </div>
                 <div class="col-75">
