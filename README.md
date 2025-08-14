@@ -7,6 +7,9 @@
 - 2-Khaled Jamal
 - 3-Zainab Alabbood
 
+## Pixel-Pocket Link
+https://pixel-pocket-front-end.vercel.app/
+
 
 ## 👾 App Description:
 
@@ -32,6 +35,7 @@ We are building the Pixel-Pocket project as part of our studies at General Assem
 ## 📚 Attributions
 
 - [Bootstrap](https://getbootstrap.com/)
+- [figma](https://www.figma.com/design/nFFfQN1CaB1FHB2BgzI501/project-3?node-id=0-1&p=f&t=VADD5WGDKCRQBivW-0)
 
 ## Next Steps
 
