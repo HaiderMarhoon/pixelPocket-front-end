@@ -140,7 +140,7 @@ const App = () => {
 
         <Route path='/sign-in' element={<SignIn handleSignIn={handleSignIn} user={user} />} />
         <Route path='/sign-up' element={<SignUp handleSignUp={handleSignUp} user={user} />} />
-        <Route path='/' element={<HomePage  />} />
+        <Route path='/' element={<HomePage user={user} />} />
         <Route path='*' element={<h1>404</h1>} />
     </Routes>
     </>
