@@ -75,7 +75,7 @@ const HomePage = (props) => {
             )}
             
         </div>
-        <h1 id="chooseGameTitle">Choose Game</h1>
+        <h1 id="chooseGameTitle">Top Game</h1>
         
 
         <div id="left-item">
